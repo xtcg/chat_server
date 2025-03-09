@@ -39,7 +39,7 @@ class History(BaseModel):
 
         return ChatMessagePromptTemplate.from_template(
             content,
-            "jinja2",
+            "f-string",
             role=role,
         )
 
