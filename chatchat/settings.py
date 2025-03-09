@@ -460,6 +460,21 @@ class ApiModelSettings(BaseFileSettings):
                     "text-embedding-3-large",
                 ],
             }),
+            PlatformConfig(**{
+                "platform_name": "oneapi",
+                "platform_type": "openai",
+                "api_base_url": "https://172.17.0.3:3000/v1",
+                "api_key": "sk-proj-",
+                "api_concurrencies": 100,
+                "llm_models": [
+                    "deepseek-v3",
+                    "deepseek-r1",
+                ],
+                "embed_models": [
+                    "text-embedding-3-small",
+                    "text-embedding-3-large",
+                ],
+            }),
         ]
     """模型平台配置"""
 
