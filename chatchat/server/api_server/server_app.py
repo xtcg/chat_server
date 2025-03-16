@@ -39,7 +39,7 @@ def create_app(run_mode: str = None):
         return RedirectResponse(url="/docs")
 
     app.include_router(chat_router)
-    # app.include_router(kb_router)
+    app.include_router(kb_router)
     # app.include_router(tool_router)
     # app.include_router(openai_router)
     # app.include_router(server_router)
@@ -52,11 +52,11 @@ def create_app(run_mode: str = None):
     )(completion)
 
     # 媒体文件
-    app.mount("/media", StaticFiles(directory=Settings.basic_settings.MEDIA_PATH), name="media")
+    # app.mount("/media", StaticFiles(directory=Settings.basic_settings.MEDIA_PATH), name="media")
 
-    # 项目相关图片
-    img_dir = str(Settings.basic_settings.IMG_DIR)
-    app.mount("/img", StaticFiles(directory=img_dir), name="img")
+    # # 项目相关图片
+    # img_dir = str(Settings.basic_settings.IMG_DIR)
+    # app.mount("/img", StaticFiles(directory=img_dir), name="img")
 
     return app
 
