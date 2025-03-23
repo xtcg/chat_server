@@ -2,7 +2,7 @@ from typing import List
 
 import tqdm
 from langchain_community.document_loaders.unstructured import UnstructuredFileLoader
-
+from langchain_core.documents import Document
 
 class RapidOCRDocLoader(UnstructuredFileLoader):
     def _get_elements(self) -> List:
@@ -68,6 +68,7 @@ class RapidOCRDocLoader(UnstructuredFileLoader):
             return resp
 
         text = doc2text(self.file_path)
+        return [Document(page_content=text, metadata={})]
         from unstructured.partition.text import partition_text
 
         return partition_text(text=text, **self.unstructured_kwargs)
