@@ -44,7 +44,7 @@ class BasicSettings(BaseFileSettings):
     @cached_property
     def PACKAGE_ROOT(self) -> Path:
         """代码根目录"""
-        return Path(__file__).parent
+        return CHATCHAT_ROOT
 
     # @computed_field
     @cached_property
