@@ -17,6 +17,7 @@ from sse_starlette.sse import EventSourceResponse, ServerSentEvent
 from chatchat.settings import Settings
 from chatchat.server.utils import get_config_platforms, get_model_info, get_OpenAIClient
 from chatchat.utils import build_logger
+from chatchat.server.db.repository import add_message_to_db
 
 from .api_schemas import *
 
@@ -71,6 +72,7 @@ async def openai_request(
     """
 
     async def generator():
+        full_response = ""  # 存储完整的回复
         try:
             for x in header:
                 if isinstance(x, str):
@@ -84,9 +86,18 @@ async def openai_request(
                 yield x.model_dump_json()
 
             async for chunk in await method(**params):
+                full_response += chunk.choices[0].delta.get("content", "")  # 拼接完整回复
                 for k, v in extra_json.items():
                     setattr(chunk, k, v)
                 yield chunk.model_dump_json()
+            try:
+                _ = add_message_to_db(
+                    chat_type="llm_response",
+                    query=full_response,
+                    conversation_id=extra_json.get("conversation_id"),
+                )
+            except Exception as e:
+                logger.warning(f"failed to add response message to db: {e}")
 
             for x in tail:
                 if isinstance(x, str):

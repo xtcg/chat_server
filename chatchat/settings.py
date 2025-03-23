@@ -469,6 +469,8 @@ class ApiModelSettings(BaseFileSettings):
                 "llm_models": [
                     "deepseek-v3",
                     "deepseek-r1",
+                    "Doubao-1.5-pro-32k",
+                    "Doubao-1.5-pro-256k",
                 ],
                 "embed_models": [
                     "text-embedding-3-small",
