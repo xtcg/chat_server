@@ -16,9 +16,9 @@ class RapidOCRDocLoader(UnstructuredFileLoader):
             from docx.table import Table, _Cell
             from docx.text.paragraph import Paragraph
             from PIL import Image
-            from rapidocr_onnxruntime import RapidOCR
+            # from rapidocr_onnxruntime import RapidOCR
 
-            ocr = RapidOCR()
+            # ocr = RapidOCR()
             doc = Document(filepath)
             resp = ""
 
@@ -47,18 +47,18 @@ class RapidOCRDocLoader(UnstructuredFileLoader):
                 b_unit.refresh()
                 if isinstance(block, Paragraph):
                     resp += block.text.strip() + "\n"
-                    images = block._element.xpath(".//pic:pic")  # 获取所有图片
-                    for image in images:
-                        for img_id in image.xpath(".//a:blip/@r:embed"):  # 获取图片id
-                            part = doc.part.related_parts[
-                                img_id
-                            ]  # 根据图片id获取对应的图片
-                            if isinstance(part, ImagePart):
-                                image = Image.open(BytesIO(part._blob))
-                                result, _ = ocr(np.array(image))
-                                if result:
-                                    ocr_result = [line[1] for line in result]
-                                    resp += "\n".join(ocr_result)
+                    # images = block._element.xpath(".//pic:pic")  # 获取所有图片
+                    # for image in images:
+                    #     for img_id in image.xpath(".//a:blip/@r:embed"):  # 获取图片id
+                    #         part = doc.part.related_parts[
+                    #             img_id
+                    #         ]  # 根据图片id获取对应的图片
+                    #         if isinstance(part, ImagePart):
+                    #             image = Image.open(BytesIO(part._blob))
+                    #             result, _ = ocr(np.array(image))
+                    #             if result:
+                    #                 ocr_result = [line[1] for line in result]
+                    #                 resp += "\n".join(ocr_result)
                 elif isinstance(block, Table):
                     for row in block.rows:
                         for cell in row.cells:
