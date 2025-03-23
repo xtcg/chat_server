@@ -464,13 +464,13 @@ class ApiModelSettings(BaseFileSettings):
                 "platform_name": "oneapi",
                 "platform_type": "openai",
                 "api_base_url": "https://172.17.0.3:3000/v1",
-                "api_key": "sk-proj-",
+                "api_key": "sk-Mq4y7cs97otyOg7dEd181932F3Ee49E38b015e1924F839C3",
                 "api_concurrencies": 100,
                 "llm_models": [
                     "deepseek-v3",
                     "deepseek-r1",
-                    "Doubao-1.5-pro-32k",
-                    "Doubao-1.5-pro-256k",
+                    "doubao-1-5-pro-32k",
+                    "doubao-1-5-pro-256k",
                 ],
                 "embed_models": [
                     "text-embedding-3-small",
