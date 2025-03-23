@@ -479,7 +479,7 @@ class ApiModelSettings(BaseFileSettings):
             }),
             PlatformConfig(**{
                 "platform_name": "doubao_emb",
-                "platform_type": "openai",
+                "platform_type": "doubao",
                 "api_base_url": "https://ark.cn-beijing.volces.com/api/v3",
                 "api_key": "d496a7d8-027e-4530-9a26-6a709ad45d01",
                 "api_concurrencies": 100,
