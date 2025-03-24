@@ -463,14 +463,14 @@ class ApiModelSettings(BaseFileSettings):
             PlatformConfig(**{
                 "platform_name": "oneapi",
                 "platform_type": "openai",
-                "api_base_url": "https://172.17.0.3:3000/v1",
-                "api_key": "sk-Mq4y7cs97otyOg7dEd181932F3Ee49E38b015e1924F839C3",
+                "api_base_url": "https://ark.cn-beijing.volces.com/api/v3",
+                "api_key":  "d496a7d8-027e-4530-9a26-6a709ad45d01",
                 "api_concurrencies": 100,
                 "llm_models": [
                     "deepseek-v3",
                     "deepseek-r1",
-                    "doubao-1-5-pro-32k",
-                    "doubao-1-5-pro-256k",
+                    "doubao-1-5-pro-32k-250115",
+                    "doubao-1-5-pro-256k-250115",
                 ],
                 "embed_models": [
                     "text-embedding-3-small",
