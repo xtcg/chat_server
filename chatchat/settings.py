@@ -665,14 +665,14 @@ class PromptSettings(BaseFileSettings):
     """意图识别用模板"""
 
     llm_model: dict = {
-        "default": "{{input}}",
+        "default": "{input}",
         "with_history": (
             "The following is a friendly conversation between a human and an AI.\n"
             "The AI is talkative and provides lots of specific details from its context.\n"
             "If the AI does not know the answer to a question, it truthfully says it does not know.\n\n"
             "Current conversation:\n"
-            "{{history}}\n"
-            "Human: {{input}}\n"
+            "{history}\n"
+            "Human: {input}\n"
             "AI:"
             ),
     }
@@ -682,12 +682,12 @@ class PromptSettings(BaseFileSettings):
         "default": (
             "【指令】根据已知信息，简洁和专业的来回答问题。"
             "如果无法从中得到答案，请说 “根据已知信息无法回答该问题”，不允许在答案中添加编造成分，答案请使用中文。\n\n"
-            "【已知信息】{{context}}\n\n"
-            "【问题】{{question}}\n"
+            "【已知信息】{context}\n\n"
+            "【问题】{question}\n"
             ),
         "empty": (
             "请你回答我的问题:\n"
-            "{{question}}"
+            "{question}"
         ),
     }
     '''RAG 用模板，可用于知识库问答、文件对话、搜索引擎对话'''
