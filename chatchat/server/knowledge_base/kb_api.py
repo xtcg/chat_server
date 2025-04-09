@@ -48,7 +48,7 @@ def create_kb(
 
 
 def delete_kb(
-    knowledge_base_name: str = Body(..., examples=["samples"]),
+    knowledge_base_name: str = Body(...),
 ) -> BaseResponse:
     # Delete selected knowledge base
     if not validate_kb_name(knowledge_base_name):
