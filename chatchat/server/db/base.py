@@ -10,6 +10,8 @@ from chatchat.settings import Settings
 engine = create_engine(
     Settings.basic_settings.SQLALCHEMY_DATABASE_URI,
     json_serializer=lambda obj: json.dumps(obj, ensure_ascii=False),
+    pool_recycle=3600,
+    pool_pre_ping=True
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
