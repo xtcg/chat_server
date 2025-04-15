@@ -32,16 +32,19 @@ class History(BaseModel):
             "human": "user",
         }
         role = role_maps.get(self.role, self.role)
-        if is_raw:  # 当前默认历史消息都是没有input_variable的文本。
-            content = "{% raw %}" + self.content + "{% endraw %}"
+        if is_raw:
+        # 将整个内容当作常量字符串，不进行变量替换
+            return ChatMessagePromptTemplate.from_template(
+                template=self.content,
+                role=role,
+                input_variables=[] 
+            )
         else:
-            content = self.content
-
-        return ChatMessagePromptTemplate.from_template(
-            content,
-            "f-string",
-            role=role,
-        )
+            # 正常模板语法，变量由调用 ChatPromptTemplate 时传入
+            return ChatMessagePromptTemplate.from_template(
+                template=self.content,
+                role=role
+            )
 
     @classmethod
     def from_data(cls, h: Union[List, Tuple, Dict]) -> "History":
