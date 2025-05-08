@@ -196,11 +196,13 @@ async def kb_chat(query: str = Body(..., description="用户输入", examples=["
                     ret = OpenAIChatOutput(
                         id=f"chat{uuid.uuid4()}",
                         object="chat.completion.chunk",
-                        content=token,
+                        content=token.replace('\n', '<br>'),
                         role="assistant",
                         model=model,
                     )
                     yield ret.model_dump_json()
+                    
+                yield '[DONE]'
             else:
                 answer = ""
                 async for token in callback.aiter():
