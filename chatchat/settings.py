@@ -147,7 +147,7 @@ class KBSettings(BaseFileSettings):
     DEFAULT_RERANK_URL: str = "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
     """默认选用的 Rerank 请求地址"""
 
-    DEFAULT_RERANK_KEY: str = "sk-354e93a3a90d42908dcf39dea0916b10"
+    DEFAULT_RERANK_KEY: str = "sk-35005c8975364e26a575c7f402b15c6c"
     """默认选用的 Rerank 请求密钥"""
 
     DEFAULT_RERANK_THRESHOLD_SCORE: float = 0.6
