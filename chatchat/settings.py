@@ -141,6 +141,18 @@ class KBSettings(BaseFileSettings):
     CACHED_VS_NUM: int = 1
     """缓存向量库数量（针对FAISS）"""
 
+    DEFAULT_RERANK_MODEL: str = "gte-rerank-v2"
+    """默认选用的 Rerank 名称"""
+
+    DEFAULT_RERANK_URL: str = "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
+    """默认选用的 Rerank 请求地址"""
+
+    DEFAULT_RERANK_KEY: str = "sk-354e93a3a90d42908dcf39dea0916b10"
+    """默认选用的 Rerank 请求密钥"""
+
+    DEFAULT_RERANK_THRESHOLD_SCORE: float = 0.6
+    """默认选用的 Rerank 相关性阈值"""
+
     CACHED_MEMO_VS_NUM: int = 10
     """缓存临时向量库数量（针对FAISS），用于文件对话"""
 

@@ -12,6 +12,7 @@ from langchain.prompts.chat import ChatPromptTemplate
 
 
 from chatchat.settings import Settings
+from chatchat.server.reranker.reranker import rerank_documents
 from chatchat.server.agent.tools_factory.search_internet import search_engine
 from chatchat.server.api_server.api_schemas import OpenAIChatOutput
 from chatchat.server.chat.utils import History
@@ -36,6 +37,12 @@ async def kb_chat(query: str = Body(..., description="用户输入", examples=["
                     description="知识库匹配相关度阈值，取值范围在0-1之间，SCORE越小，相关度越高，取到1相当于不筛选，建议设置在0.5左右",
                     ge=0,
                     le=2,
+                ),
+                rerank_threshold: float = Body(
+                    Settings.kb_settings.DEFAULT_RERANK_THRESHOLD_SCORE,
+                    description="知识库匹配重排序阈值，取值范围在0-1之间，SCORE越大，相关度越高，默认设置在0.6",
+                    ge=0,
+                    le=1,
                 ),
                 history: List[History] = Body(
                     [],
@@ -83,7 +90,7 @@ async def kb_chat(query: str = Body(..., description="用户输入", examples=["
                                                 score_threshold=score_threshold,
                                                 file_name="",
                                                 metadata={})
-                source_documents = format_reference(kb_name, docs, api_address(is_public=True))
+                # source_documents = format_reference(kb_name, docs, api_address(is_public=True))
             elif mode == "temp_kb":
                 ok, msg = check_embed_model()
                 if not ok:
@@ -160,6 +167,8 @@ async def kb_chat(query: str = Body(..., description="用户输入", examples=["
             #                                              query=query)
             #     print("------------after rerank------------------")
             #     print(docs)
+            docs = rerank_documents(docs, query, rerank_threshold)
+            source_documents = format_reference(kb_name, docs, api_address(is_public=True))
             context = "\n\n".join([doc["page_content"] for doc in docs])
 
             if len(docs) == 0:  # 如果没有找到相关文档，使用empty模板

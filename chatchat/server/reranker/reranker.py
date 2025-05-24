@@ -1,15 +1,49 @@
 import os
 import sys
+import requests
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 from typing import Any, List, Optional, Sequence
 
+from chatchat.settings import Settings
 from langchain.callbacks.manager import Callbacks
 from langchain.retrievers.document_compressors.base import BaseDocumentCompressor
 from langchain_core.documents import Document
 from pydantic import Field, PrivateAttr
 from sentence_transformers import CrossEncoder
 
+
+def rerank_documents(documents: Sequence[Document], query: str, score: float = Settings.kb_settings.DEFAULT_RERANK_THREHOLD_SCORE):
+    url = Settings.kb_settings.DEFAULT_RERANK_URL
+    api_key = Settings.kb_settings.DEFAULT_RERANK_KEY
+    model = Settings.basic_settings.DEFAULT_RERANK_MODEL
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    contents = [i.get('page_content') for i in documents]
+    data = {
+        "model": model,
+        "input": {
+            "query": query,
+            "documents": contents,
+        },
+        "parameters": {
+            "return_documents": False,
+            "top_n": 3,
+        }
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code == 200:
+        response = response.json()
+        candidate = response['output']['results']
+        res = []
+        for candi in candidate:
+            if candi['relevance_score'] > score:
+                res.append(documents[candi['index']])
+        return res
+    return []
 
 class LangchainReranker(BaseDocumentCompressor):
     """Document compressor that uses `Cohere Rerank API`."""
