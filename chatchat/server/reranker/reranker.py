@@ -13,7 +13,7 @@ from pydantic import Field, PrivateAttr
 # from sentence_transformers import CrossEncoder
 
 
-def rerank_documents(documents: Sequence[Document], query: str, score: float = Settings.kb_settings.DEFAULT_RERANK_THREHOLD_SCORE):
+def rerank_documents(documents: Sequence[Document], query: str, score: float = Settings.kb_settings.DEFAULT_RERANK_THRESHOLD_SCORE):
     url = Settings.kb_settings.DEFAULT_RERANK_URL
     api_key = Settings.kb_settings.DEFAULT_RERANK_KEY
     model = Settings.basic_settings.DEFAULT_RERANK_MODEL
