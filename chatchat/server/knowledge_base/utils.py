@@ -471,7 +471,7 @@ def format_reference(kb_name: str, docs: List[Dict], api_base_url: str="") -> Li
     api_base_url = api_base_url or api_address(is_public=True)
 
     source_documents = []
-    seen = dict()
+    seen = set()
     for inum, doc in enumerate(docs):
         filename = doc.get("metadata", {}).get("source")
         if filename in seen:
