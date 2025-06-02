@@ -58,7 +58,7 @@ async def questionnaire_suggestions(query: List[str] = Body(..., description="ç”
             chain = chat_prompt | llm
             # Begin a task that runs in the background.
             task = asyncio.create_task(wrap_done(
-                chain.ainvoke(context = '\n\n'.join([q for q in query])),
+                chain.ainvoke({"context": '\n\n'.join([q for q in query])}),
                 callback.done),
             )
 
