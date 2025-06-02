@@ -468,8 +468,12 @@ def format_reference(kb_name: str, docs: List[Dict], api_base_url: str="") -> Li
     api_base_url = api_base_url or api_address(is_public=True)
 
     source_documents = []
+    seen = dict()
     for inum, doc in enumerate(docs):
         filename = doc.get("metadata", {}).get("source")
+        if filename in seen:
+            continue
+        seen.add(filename)
         parameters = urlencode(
             {
                 "knowledge_base_name": kb_name,
@@ -481,7 +485,7 @@ def format_reference(kb_name: str, docs: List[Dict], api_base_url: str="") -> Li
             f"{api_base_url}/knowledge_base/download_doc?" + parameters
         )
         page_content = doc.get("page_content")
-        ref = f"""出处 [{inum + 1}] [{filename}]({url}) \n\n{page_content}\n\n"""
+        ref = f"""[{filename}]({url}) \n\n"""
         source_documents.append(ref)
     
     return source_documents
