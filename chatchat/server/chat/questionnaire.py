@@ -19,7 +19,7 @@ from chatchat.server.utils import (wrap_done, get_ChatOpenAI, get_default_llm,
 
 logger = build_logger()
 
-async def questionnaire_suggestions(query: List[str] = Body(..., description="用户输入", examples=["问题一：\n\n用户答案：","问题二：\n\n用户答案："]),
+async def questionnaire_suggestions(query: list[str] = Body(..., description="用户输入", examples=["问题一：\n\n用户答案：","问题二：\n\n用户答案："]),
                 stream: bool = Body(True, description="流式输出"),
                 model: str = Body(get_default_llm(), description="LLM 模型名称。"),
                 temperature: float = Body(Settings.model_settings.TEMPERATURE, description="LLM 采样温度", ge=0.0, le=2.0),
