@@ -704,7 +704,7 @@ class PromptSettings(BaseFileSettings):
     }
     '''RAG 用模板，可用于知识库问答、文件对话、搜索引擎对话'''
 
-    quertionnaire: dict = {
+    questionnaire: dict = {
         "default": (
             "【指令】你是一位老年护理专业医生，根据用户对问卷问题做出的回答，给出专业的建议。"
             "【已知信息】{context}\n\n"
