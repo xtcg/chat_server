@@ -36,6 +36,7 @@ async def questionnaire_suggestions(query: List[str] = Body(..., description="ç”
     
     async def knowledge_base_chat_iterator() -> AsyncIterable[str]:
         try:
+            nonlocal prompt_name, max_tokens
             callback = AsyncIteratorCallbackHandler()
             callbacks = [callback]
 
