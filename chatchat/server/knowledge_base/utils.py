@@ -1,6 +1,7 @@
 import importlib
 import json
 import os
+import re
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlencode
@@ -459,6 +460,8 @@ def files2docs_in_thread(
     ):
         yield result
 
+def replace_to_pdf(filename: str) -> str:
+    return re.sub(r'\.(txt|docx?|DOCX?|TXT|DOC)$', '.pdf', filename, flags=re.IGNORECASE)
 
 def format_reference(kb_name: str, docs: List[Dict], api_base_url: str="") -> List[Dict]:
     '''
@@ -477,7 +480,7 @@ def format_reference(kb_name: str, docs: List[Dict], api_base_url: str="") -> Li
         parameters = urlencode(
             {
                 "knowledge_base_name": kb_name,
-                "file_name": filename,
+                "file_name": replace_to_pdf(filename),
             }
         )
         api_base_url = api_base_url.strip(" /")
