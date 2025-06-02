@@ -397,6 +397,7 @@ class KnowledgeFile:
                 chunk_overlap=chunk_overlap,
                 text_splitter=text_splitter,
             )
+            logger.info(self.splited_docs[:5])
         return self.splited_docs
 
     def file_exist(self):
